@@ -1,11 +1,16 @@
 <script>
+  import { Request } from "https://deno.land/x/request@1.3.2/mod.ts";
+
   export let name;
   let inputValue;
 
-  function handleClick() {
-    alert(
-      "das ist ja ein lustiges problem, sei froh dass du keine anderen problemen hast."
-    );
+  let response;
+
+  async function handleClick() {
+    // const result = await Request.get("http://localhost:3004/gibmirdieloesung");
+    response = await (
+      await fetch("http://localhost:3004/gibmirdieloesung")
+    ).json();
   }
 </script>
 
@@ -22,6 +27,10 @@
 />
 
 <button on:click={handleClick}> Send </button>
+<p><br /></p>
+{#if response !== undefined}
+  {response.answer}
+{/if}
 
 <link
   href="https://fonts.googleapis.com/css?family=Overpass:100,400"
